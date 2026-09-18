@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
@@ -19,7 +20,12 @@ public class Map : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
+           map.SetActive(true);
         }
+    }
+
+    public void Nepal()
+    {
+        SceneManager.LoadSceneAsync(2);
     }
 }
