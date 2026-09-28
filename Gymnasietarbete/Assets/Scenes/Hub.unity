@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 209461771}
   - component: {fileID: 209461770}
   - component: {fileID: 209461769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1267,6 +1267,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4346968658862651385, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4975857400988465217, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
       propertyPath: m_Name
       value: Player
