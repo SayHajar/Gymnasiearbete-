@@ -26,6 +26,6 @@ public class Map : MonoBehaviour
 
     public void Nepal()
     {
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(1);
     }
 }

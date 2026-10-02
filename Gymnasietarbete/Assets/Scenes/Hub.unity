@@ -638,7 +638,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1926272053}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: Country1
+        m_MethodName: Nepal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
