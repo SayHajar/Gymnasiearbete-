@@ -136,8 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0893f011971a8564b87723cce67f65ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
-  inventory: {fileID: 0}
-  font: {fileID: 0}
 --- !u!114 &123234893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,15 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d94f9b2a9a6fe48a257d12fa1e7bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
-  inventory: {fileID: 0}
-  equipSystem: {fileID: 0}
-  interactRange: 1.6
-  centerOffset: {x: 0, y: 0.25}
-  interactMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  promptText: {fileID: 0}
-  messageText: {fileID: 0}
 --- !u!114 &123234894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,9 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edbe9352d9024f46a52dc71f7a35070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipSystem
-  inventory: {fileID: 0}
-  handSocket: {fileID: 0}
-  handOffset: {x: 0.45, y: 0.1}
 --- !u!114 &123234895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,10 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd32e8ccd08d21e4d8b523affbd67426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  capacity: 8
-  maxStack: 10
-  slots: []
-  selectedIndex: -1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,8 +547,8 @@ Transform:
   m_GameObject: {fileID: 1835012017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0577, y: -2.46, z: 0}
-  m_LocalScale: {x: 15.487472, y: 1, z: 1}
+  m_LocalPosition: {x: 1.1273, y: -2.752, z: 0}
+  m_LocalScale: {x: 13.1179, y: 1.5839, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -623,6 +605,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7192378119041331114, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 6841243df53f3734fa7f776f167ac674, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
