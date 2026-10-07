@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: TilesetPaid-CanyonDesertPlatformer_41 1
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 377066433, guid: cedce835dfd954544913e9fd81a8141a, type: 3}
-  m_Color: {r: 0.3886792, g: 0.3886792, b: 0.3886792, a: 1}
+  m_Sprite: {fileID: -328231619, guid: cedce835dfd954544913e9fd81a8141a, type: 3}
+  m_Color: {r: 0.9935548, g: 1, b: 0.19433957, a: 1}
   m_Transform:
     e00: 1
     e01: 0
