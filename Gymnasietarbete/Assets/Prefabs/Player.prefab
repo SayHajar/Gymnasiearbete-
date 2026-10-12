@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 7192378119041331114}
   - component: {fileID: 7081200959715716358}
   - component: {fileID: 3142667605785651247}
+  - component: {fileID: -6175465819629350116}
+  - component: {fileID: 1111111111111111111}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -219,3 +221,29 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-6175465819629350116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346968658862651385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab938d3683a2da0a966b9d916f85136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  slots: []
+--- !u!114 &1111111111111111111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346968658862651385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5d0dd46e2b4374a8a8d5d5f8f8f8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryInitializer
+  inventoryUI: {fileID: 0}
