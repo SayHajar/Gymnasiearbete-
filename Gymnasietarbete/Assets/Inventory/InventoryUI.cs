@@ -1,11 +1,14 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 {
+    public static InventoryUI Instance { get; private set; }
+
     public Image itemPreviewImage;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDesctiption;
@@ -16,6 +19,19 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public ItemWorldObj itemWorldObjPrefab;
     private Transform playerTransform; // this is set programmatically !!!
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+
     private void Start()
     {
         if (inventory != null)
@@ -23,6 +39,10 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             inventory.OnInventoryChanged += Refresh;
             Refresh();
         }
+    }
+
+    public void ToggleUI (){ 
+        gameObject.SetActive(!this.gameObject.activeSelf);
     }
 
     private void OnDisable()

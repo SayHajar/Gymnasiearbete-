@@ -7,6 +7,15 @@ public class Inventory : MonoBehaviour
     public List<InventorySlot> slots = new();
     public event Action OnInventoryChanged;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            InventoryUI.Instance.ToggleUI();
+        }
+    }
+
+
     public void AddItem(ItemDefinition itemDef, int amount = 1)
     {
         if (itemDef.isStackable)
@@ -44,5 +53,6 @@ public class Inventory : MonoBehaviour
     {
         RemoveItem(itemDef);
         ItemWorldObj.SpawnItemWorldObj(dropPosition, itemDef, 1, itemWorldObjPrefab, true);
+
     }
 }

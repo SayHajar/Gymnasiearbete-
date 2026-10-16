@@ -6999,14 +6999,22 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6175465819629350116, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
       propertyPath: slots.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -6175465819629350116, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
       propertyPath: slots.Array.data[0].item
       value: 
       objectReference: {fileID: 11400000, guid: 525de3d0be01fc74d8ce088cd28871ba, type: 2}
     - target: {fileID: -6175465819629350116, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
+      propertyPath: slots.Array.data[1].item
+      value: 
+      objectReference: {fileID: 11400000, guid: da3f3eb3face84549b01271d73dba3ad, type: 2}
+    - target: {fileID: -6175465819629350116, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
       propertyPath: slots.Array.data[0].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6175465819629350116, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
+      propertyPath: slots.Array.data[1].amount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4346968658862651385, guid: a5aea648fb395c648971a7c95c1273ba, type: 3}
