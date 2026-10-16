@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3142667605785651247}
   - component: {fileID: -6175465819629350116}
   - component: {fileID: 1111111111111111111}
+  - component: {fileID: 853062537969570330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -247,3 +248,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryInitializer
   inventoryUI: {fileID: 0}
+--- !u!114 &853062537969570330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346968658862651385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889020bca36db90448ca427b2e1cca0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Playerlife

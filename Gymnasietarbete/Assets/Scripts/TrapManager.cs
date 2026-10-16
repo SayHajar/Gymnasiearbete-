@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrapManager : MonoBehaviour
 {
     [SerializeField] private GameObject spike;
-    
+
     bool playerInTrap = false;
     public float minY = -1.2f;
     bool hasLanded = false;
