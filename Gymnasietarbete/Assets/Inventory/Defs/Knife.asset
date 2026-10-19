@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::Knife
   Name: Knife
-  icon: {fileID: -8764788939893906635, guid: 0ca07dbaeeb3e6648868079bd55c96de, type: 3}
+  icon: {fileID: 8614696300881993170, guid: 617fa597fcc62374eb24ba7033b3a6cd, type: 3}
   isStackable: 1
   removeOnUse: 1
   tooltipDescription: this  is london bro

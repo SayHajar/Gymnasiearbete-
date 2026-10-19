@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TorchItem
   m_EditorClassIdentifier: Assembly-CSharp::TorchDef
   Name: Torch
-  icon: {fileID: -17733256832601149, guid: a0e4228336560464982e126fbb286333, type: 3}
+  icon: {fileID: 7003479037488861048, guid: a0e4228336560464982e126fbb286333, type: 3}
   isStackable: 1
   removeOnUse: 0
   tooltipDescription: This is a torch
