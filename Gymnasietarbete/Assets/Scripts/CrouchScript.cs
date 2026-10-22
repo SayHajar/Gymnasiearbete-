@@ -4,16 +4,23 @@ public class CrouchScript : MonoBehaviour
 {
     [SerializeField] private float crouchHeightMultiplier = 0.5f;
     [SerializeField] private BoxCollider2D col;
-    [SerializeField] private GameObject spriteObj;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
-    private Vector3 originalSpriteScale;
+    private Vector3 originalPlayerScale;
+    private Vector2 originalSpriteSize;
+
+    private bool isCrouching = false;
 
     private void Start()
     {
+        // Automatically grab components on this same GameObject if not assigned in Inspector
         if (col == null)
             col = GetComponent<BoxCollider2D>();
+
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (col != null)
         {
@@ -21,19 +28,21 @@ public class CrouchScript : MonoBehaviour
             originalColliderOffset = col.offset;
         }
 
-        if (spriteObj != null)
+        originalPlayerScale = transform.localScale;
+
+        if (spriteRenderer != null)
         {
-            originalSpriteScale = spriteObj.transform.localScale;
+            originalSpriteSize = spriteRenderer.size;
         }
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Crouch();
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             StandUp();
         }
@@ -41,6 +50,10 @@ public class CrouchScript : MonoBehaviour
 
     private void Crouch()
     {
+        if (isCrouching) return;
+        isCrouching = true;
+
+        // 1. Resize BoxCollider2D
         if (col != null)
         {
             float newHeight = originalColliderSize.y * crouchHeightMultiplier;
@@ -50,27 +63,43 @@ public class CrouchScript : MonoBehaviour
             col.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - (heightDelta / 2f));
         }
 
-        if (spriteObj != null)
+        // 2. Scale Sprite Visuals
+        if (spriteRenderer != null && spriteRenderer.drawMode != SpriteDrawMode.Simple)
         {
-            spriteObj.transform.localScale = new Vector3(
-                originalSpriteScale.x,
-                originalSpriteScale.y * crouchHeightMultiplier,
-                originalSpriteScale.z
+            // If Draw Mode is Sliced/Tiled, scale size directly without affecting child GameObjects
+            spriteRenderer.size = new Vector2(originalSpriteSize.x, originalSpriteSize.y * crouchHeightMultiplier);
+        }
+        else
+        {
+            // Fallback: Scale Player Transform Y-axis
+            transform.localScale = new Vector3(
+                originalPlayerScale.x,
+                originalPlayerScale.y * crouchHeightMultiplier,
+                originalPlayerScale.z
             );
         }
     }
 
     private void StandUp()
     {
+        if (!isCrouching) return;
+        isCrouching = false;
+
+        // 1. Restore BoxCollider2D
         if (col != null)
         {
             col.size = originalColliderSize;
             col.offset = originalColliderOffset;
         }
 
-        if (spriteObj != null)
+        // 2. Restore Sprite Visuals
+        if (spriteRenderer != null && spriteRenderer.drawMode != SpriteDrawMode.Simple)
         {
-            spriteObj.transform.localScale = originalSpriteScale;
+            spriteRenderer.size = originalSpriteSize;
+        }
+        else
+        {
+            transform.localScale = originalPlayerScale;
         }
     }
 }
