@@ -11,7 +11,7 @@ public class CrouchScript : MonoBehaviour
     private Vector3 originalPlayerScale;
     private Vector2 originalSpriteSize;
 
-    private bool isCrouching = false;
+public bool isCrouching = false;
 
     private void Start()
     {
