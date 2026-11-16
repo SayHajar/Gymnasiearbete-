@@ -13,7 +13,7 @@ public class NPCManager : MonoBehaviour
         {
             if (ticTacToeManager != null)
             {
-                ticTacToeManager.StartGame();
+                ticTacToeManager.StartDialogueSequence();
             }
         }
     }
