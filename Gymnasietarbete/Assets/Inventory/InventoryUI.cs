@@ -37,6 +37,12 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             inventory.OnInventoryChanged += Refresh;
             Refresh();
         }
+
+        if (playerTransform == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) playerTransform = p.transform;
+        }
     }
 
     public void ToggleUI()

@@ -15,8 +15,11 @@ MonoBehaviour:
   Name: 5 Liter Jug
   icon: {fileID: 0}
   isStackable: 1
-  removeOnUse: 1
-  tooltipDescription: 
+  removeOnUse: 0
+  tooltipDescription: 'Ancient 5-Liter clay jug.
+
+    Currently holding: <b>5 / 5
+    Liters</b>'
   useButtonText: Use
   jugSize: 0
-  currentFillRatio: 0
+  currentFillRatio: 1

@@ -6,7 +6,6 @@ public class WaterJugPuzzleManager : MonoBehaviour
 {
     [Header("Station Trigger Zones (2D Colliders)")]
     public Collider2D fountainZone;
-    public Collider2D pourZone;
     public Collider2D drainZone;
     public Collider2D scaleZone;
 
@@ -35,7 +34,7 @@ public class WaterJugPuzzleManager : MonoBehaviour
     {
         if (scalePlate != null) scaleStartY = scalePlate.position.y;
         UpdateItemDescriptions();
-        SetStatus("Simon says: 'Use your jugs at the stations to place EXACTLY 4L on the scale!'");
+        SetStatus("Simon says: 'Use your jugs to place EXACTLY 4L on the scale!'");
     }
 
     private void Update()
@@ -49,63 +48,78 @@ public class WaterJugPuzzleManager : MonoBehaviour
 
     public void UseJugFromInventory(WaterJugItemDefinition.JugSize size, GameObject player)
     {
-        if (solved) return;
+        if (solved)
+        {
+            SetStatus("Puzzle is already solved!");
+            return;
+        }
 
-        Collider2D playerCol = player.GetComponent<Collider2D>();
-        if (playerCol == null) return;
+        Collider2D[] playerCols = player.GetComponentsInChildren<Collider2D>();
+        if (playerCols == null || playerCols.Length == 0)
+        {
+            SetStatus($"ERROR: No Collider2D found on {player.name}!");
+            return;
+        }
+
+        if (fountainZone == null)
+        {
+            SetStatus("ERROR: fountainZone is NULL in WaterJugPuzzleManager!");
+            return;
+        }
+
+        bool atFountain = IsTouchingZone(playerCols, fountainZone);
+        bool atDrain = IsTouchingZone(playerCols, drainZone);
+        bool atScale = IsTouchingZone(playerCols, scaleZone);
 
         bool is5L = (size == WaterJugItemDefinition.JugSize.FiveLiter);
 
-        if (fountainZone != null && playerCol.IsTouching(fountainZone))
+        if (atFountain)
         {
-            if (is5L && !jug5OnScale)
-            {
-                jug5 = 5;
-                SetStatus($"Filled 5L Jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
-            }
-            else if (!is5L && !jug3OnScale)
-            {
-                jug3 = 3;
-                SetStatus($"Filled 3L Jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
-            }
-        }
-        else if (pourZone != null && playerCol.IsTouching(pourZone))
-        {
-            if (jug5OnScale || jug3OnScale)
-            {
-                SetStatus("Take both jugs off the scale before pouring!");
-                return;
-            }
-
             if (is5L)
             {
-                int move = Mathf.Min(jug5, 3 - jug3);
-                jug5 -= move;
-                jug3 += move;
-                SetStatus($"Poured 5L into 3L! (5L: {jug5}/5 | 3L: {jug3}/3)");
+                if (jug5OnScale) SetStatus("Take the 5L jug off the scale first!");
+                else if (jug5 == 5) SetStatus("The 5L jug is already full!");
+                else
+                {
+                    jug5 = 5;
+                    SetStatus($"Filled 5L Jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
+                }
             }
             else
             {
-                int move = Mathf.Min(jug3, 5 - jug5);
-                jug3 -= move;
-                jug5 += move;
-                SetStatus($"Poured 3L into 5L! (5L: {jug5}/5 | 3L: {jug3}/3)");
+                if (jug3OnScale) SetStatus("Take the 3L jug off the scale first!");
+                else if (jug3 == 3) SetStatus("The 3L jug is already full!");
+                else
+                {
+                    jug3 = 3;
+                    SetStatus($"Filled 3L Jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
+                }
             }
         }
-        else if (drainZone != null && playerCol.IsTouching(drainZone))
+        else if (atDrain)
         {
-            if (is5L && !jug5OnScale)
+            if (is5L)
             {
-                jug5 = 0;
-                SetStatus($"Emptied 5L Jug. (5L: {jug5}/5 | 3L: {jug3}/3)");
+                if (jug5OnScale) SetStatus("Take the 5L jug off the scale first!");
+                else if (jug5 == 0) SetStatus("The 5L jug is already empty!");
+                else
+                {
+                    jug5 = 0;
+                    SetStatus($"Emptied 5L Jug. (5L: {jug5}/5 | 3L: {jug3}/3)");
+                }
             }
-            else if (!is5L && !jug3OnScale)
+            else
             {
-                jug3 = 0;
-                SetStatus($"Emptied 3L Jug. (5L: {jug5}/5 | 3L: {jug3}/3)");
+                if (jug3OnScale) SetStatus("Take the 3L jug off the scale first!");
+                else if (jug3 == 0) SetStatus("The 3L jug is already empty!");
+                else
+                {
+                    jug3 = 0;
+                    SetStatus($"Emptied 3L Jug. (5L: {jug5}/5 | 3L: {jug3}/3)");
+                }
             }
         }
-        else if (scaleZone != null && playerCol.IsTouching(scaleZone))
+        else if (atScale)
         {
             if (is5L) jug5OnScale = !jug5OnScale;
             else jug3OnScale = !jug3OnScale;
@@ -114,10 +128,78 @@ public class WaterJugPuzzleManager : MonoBehaviour
         }
         else
         {
-            SetStatus($"You examine the {(is5L ? $"5L Jug ({jug5}/5L)" : $"3L Jug ({jug3}/3L)")}. Walk up to a station to use it!");
+            // Shows distance to fountain on-screen so you immediately see if Z-depth or position is off
+            float dist = Vector2.Distance(player.transform.position, fountainZone.bounds.center);
+            SetStatus($"Not at a station (Dist to fountain: {dist:F1}m) -> Trying to pour...");
+            TryPourBetweenJugs(is5L);
         }
 
         UpdateItemDescriptions();
+    }
+
+    private bool IsTouchingZone(Collider2D[] playerCols, Collider2D zone)
+    {
+        if (zone == null) return false;
+
+        foreach (var col in playerCols)
+        {
+            if (col == null || !col.enabled) continue;
+
+            // Ignore Z-axis differences by comparing 2D min/max bounds directly
+            Bounds a = col.bounds;
+            Bounds b = zone.bounds;
+            bool overlapX = a.min.x <= b.max.x && a.max.x >= b.min.x;
+            bool overlapY = a.min.y <= b.max.y && a.max.y >= b.min.y;
+
+            if (overlapX && overlapY) return true;
+        }
+        return false;
+    }
+
+    private void TryPourBetweenJugs(bool from5To3)
+    {
+        if (jug5OnScale || jug3OnScale)
+        {
+            SetStatus("Can't pour! Take both jugs off the scale first.");
+            return;
+        }
+
+        if (from5To3)
+        {
+            if (jug5 == 0)
+            {
+                SetStatus("Can't pour! Your 5L jug is empty.");
+                return;
+            }
+            if (jug3 == 3)
+            {
+                SetStatus("Can't pour! The 3L jug is already full.");
+                return;
+            }
+
+            int move = Mathf.Min(jug5, 3 - jug3);
+            jug5 -= move;
+            jug3 += move;
+            SetStatus($"Poured {move}L into the 3L jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
+        }
+        else
+        {
+            if (jug3 == 0)
+            {
+                SetStatus("Can't pour! Your 3L jug is empty.");
+                return;
+            }
+            if (jug5 == 5)
+            {
+                SetStatus("Can't pour! The 5L jug is already full.");
+                return;
+            }
+
+            int move = Mathf.Min(jug3, 5 - jug5);
+            jug3 -= move;
+            jug5 += move;
+            SetStatus($"Poured {move}L into the 5L jug! (5L: {jug5}/5 | 3L: {jug3}/3)");
+        }
     }
 
     private void CheckScale()
@@ -168,4 +250,4 @@ public class WaterJugPuzzleManager : MonoBehaviour
         if (statusText != null) statusText.text = msg;
         Debug.Log(msg);
     }
-}   
+}
