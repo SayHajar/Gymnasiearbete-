@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-
 {
     public static InventoryUI Instance { get; private set; }
 
@@ -17,7 +16,7 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Transform slotContainer;
     public GameObject slotPrefab;
     public ItemWorldObj itemWorldObjPrefab;
-    private Transform playerTransform; // this is set programmatically !!!
+    private Transform playerTransform;
 
     private void Awake()
     {
@@ -31,7 +30,6 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-
     private void Start()
     {
         if (inventory != null)
@@ -41,13 +39,13 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    public void ToggleUI (){ 
+    public void ToggleUI()
+    {
         gameObject.SetActive(!this.gameObject.activeSelf);
     }
 
     private void OnDisable()
     {
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -73,14 +71,12 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             return;
         }
 
-        // If the same inventory instance  just Refresh to rebuild UI for new scene
         if (inventory == inv)
         {
             Refresh();
             return;
         }
 
-        // unsubscribe from old inventory if there was one
         if (inventory != null)
             inventory.OnInventoryChanged -= Refresh;
 
@@ -89,7 +85,7 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Refresh();
     }
 
-    private void Refresh()
+    public void Refresh()
     {
         if (slotContainer == null) return;
 
