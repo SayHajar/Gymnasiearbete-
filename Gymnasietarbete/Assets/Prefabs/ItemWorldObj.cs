@@ -8,9 +8,9 @@ public class ItemWorldObj : MonoBehaviour
     private const float TriggerScaleFactor = 1.3f;
     private const float PickupCooldown = 0.5f; // palla inte med mer sizing shit så cooldown ig
 
-    private int amount;
+    [SerializeField] private int amount;
     private TextMeshPro amountTxt;
-    private ItemDefinition itemDef;
+    [SerializeField] private ItemDefinition itemDef;
     private float pickupReadyTime;
 
     private SpriteRenderer spriteRenderer;
@@ -19,6 +19,13 @@ public class ItemWorldObj : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         amountTxt = transform.Find("amountTxt").GetComponent<TextMeshPro>();
+
+    }
+
+    private void Start()
+    {
+        spriteRenderer.sprite = itemDef.icon;
+        spriteRenderer.sortingOrder = 55;
     }
 
     public bool CanPickup()
@@ -60,6 +67,7 @@ public class ItemWorldObj : MonoBehaviour
         this.itemDef = itemDef;
         this.amount = amount;
         spriteRenderer.sprite = itemDef.icon;
+        spriteRenderer.sortingOrder = 55;
         amountTxt.enabled = amount > 1;
         if (amount > 1) amountTxt.text = amount.ToString();
 
@@ -93,5 +101,16 @@ public class ItemWorldObj : MonoBehaviour
     public void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && this.CanPickup())
+        {
+            collision.gameObject.GetComponent<Inventory>().AddItem(itemDef, amount);
+            DestroySelf();
+        }
+
     }
 }

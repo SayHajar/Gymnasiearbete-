@@ -30,7 +30,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7293382321753210544}
+  m_Father: {fileID: 7293382321753510544}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -189,13 +189,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7293382321753210544}
+  - component: {fileID: 7293382321753510544}
   - component: {fileID: 2249652768253514975}
   - component: {fileID: 6034648908518070513}
   - component: {fileID: 4869533871363505447}
   - component: {fileID: 3186402736532476908}
   - component: {fileID: 6097440860036440247}
-  - component: {fileID: 9876543210987654321}
   m_Layer: 0
   m_Name: ItemWorldObj
   m_TagString: Untagged
@@ -266,7 +265,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 437452ddc6a45a2458559366290d6a83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -568,15 +567,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57eed874fd756a4db3aef317a99c346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemWorldObj
---- !u!114 &9876543210987654321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138961620619508159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5d0dd46e2b4374a8a8d5d5f8f8f8f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  amount: 1
+  itemDef: {fileID: 0}
