@@ -82,14 +82,16 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnUseButton()
     {
-        if (playerTransform)
+        if (playerTransform == null)
         {
-            var player = playerTransform.gameObject;
-            if (player)
-            {
-                slot.item.Use(player);
-                if (slot.item.removeOnUse && inventory != null) inventory.RemoveItem(slot.item);
-            }
+            var p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) playerTransform = p.transform;
+        }
+
+        if (playerTransform != null)
+        {
+            slot.item.Use(playerTransform.gameObject);
+            if (slot.item.removeOnUse && inventory != null) inventory.RemoveItem(slot.item);
         }
     }
 
