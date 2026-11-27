@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: NewWaterJug
   m_EditorClassIdentifier: Assembly-CSharp::WaterJugItemDefinition
   Name: 5 Liter Jug
-  icon: {fileID: 0}
+  icon: {fileID: -7340804006313648053, guid: 51f1766700cde0f42a3b0c98aa653ccb, type: 3}
   isStackable: 1
   removeOnUse: 0
   tooltipDescription: 'Ancient 5-Liter clay jug.
 
-    Currently holding: <b>5 / 5
+    Currently holding: <b>0 / 5
     Liters</b>'
   useButtonText: Use
   jugSize: 0
-  currentFillRatio: 1
+  currentFillRatio: 0
