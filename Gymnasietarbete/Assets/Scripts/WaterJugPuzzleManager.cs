@@ -218,6 +218,23 @@ public class WaterJugPuzzleManager : MonoBehaviour
             solved = true;
             SetStatus("CLICK! Exactly 4 Liters! Simon says: 'Impressive... the door is open.'");
             if (exitDoor != null) exitDoor.SetActive(false);
+
+            Inventory inv = (InventoryUI.Instance != null && InventoryUI.Instance.inventory != null)
+                ? InventoryUI.Instance.inventory
+                : FindObjectOfType<Inventory>();
+
+            if (inv != null)
+            {
+                if (jug5ItemDef != null) inv.RemoveItem(jug5ItemDef);
+                if (jug3ItemDef != null) inv.RemoveItem(jug3ItemDef);
+            }
+
+            if (InventoryUI.Instance != null)
+            {
+                InventoryUI.Instance.itemName.text = string.Empty;
+                InventoryUI.Instance.itemDesctiption.text = string.Empty;
+                InventoryUI.Instance.itemPreviewImage.sprite = null;
+            }
         }
         else
         {
