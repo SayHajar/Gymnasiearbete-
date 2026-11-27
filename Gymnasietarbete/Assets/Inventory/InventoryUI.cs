@@ -50,6 +50,11 @@ public class InventoryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         gameObject.SetActive(!this.gameObject.activeSelf);
     }
 
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnDisable()
     {
     }

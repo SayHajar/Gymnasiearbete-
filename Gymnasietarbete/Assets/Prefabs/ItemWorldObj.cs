@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -60,6 +61,53 @@ public class ItemWorldObj : MonoBehaviour
 
 
         return obj;
+    }
+
+    /// <summary>
+    /// Spawnar ett föremål som kastas med en bestämd hastighet (kraft) och tyngd.
+    /// </summary>
+    public static ItemWorldObj SpawnThrown(Vector3 position, ItemDefinition itemDef, int amount,
+        ItemWorldObj prefab, Vector2 velocity, float gravityScale = 1f, float spin = 360f)
+    {
+        var obj = Instantiate(prefab, position, Quaternion.identity);
+        obj.SetItem(itemDef, amount);
+        obj.pickupReadyTime = Time.time + PickupCooldown;
+
+        var rb = obj.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.gravityScale = gravityScale;
+            rb.linearVelocity = velocity;
+            rb.angularVelocity = Random.Range(-spin, spin);
+        }
+
+        obj.StartCoroutine(obj.IgnorePlayerCollisionRoutine());
+        return obj;
+    }
+
+    // Gör så att det kastade föremålet inte studsar på / plockas upp av spelaren direkt
+    private IEnumerator IgnorePlayerCollisionRoutine()
+    {
+        // SetItem använder Destroy() på gamla colliders, vänta en frame så de är borta
+        yield return null;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) yield break;
+
+        var mine = GetComponents<Collider2D>();
+        var theirs = player.GetComponentsInChildren<Collider2D>();
+
+        foreach (var a in mine)
+            foreach (var b in theirs)
+                if (a != null && b != null)
+                    Physics2D.IgnoreCollision(a, b, true);
+
+        yield return new WaitForSeconds(PickupCooldown);
+
+        foreach (var a in mine)
+            foreach (var b in theirs)
+                if (a != null && b != null)
+                    Physics2D.IgnoreCollision(a, b, false);
     }
 
     public void SetItem(ItemDefinition itemDef, int amount)

@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !StoneThrower.IsAiming && InventoryUI.Instance != null)
         {
             InventoryUI.Instance.ToggleUI();
         }
@@ -54,5 +54,20 @@ public class Inventory : MonoBehaviour
         RemoveItem(itemDef);
         ItemWorldObj.SpawnItemWorldObj(dropPosition, itemDef, 1, itemWorldObjPrefab, true);
 
+    }
+
+    // Throw one item with a direction and a force. The item is removed first when the throw happens.
+    public bool ThrowItem(ItemDefinition itemDef, Vector2 direction, float power, ItemWorldObj itemWorldObjPrefab,
+        float gravityScale = 1f, float spin = 360f)
+    {
+        if (itemDef == null || itemWorldObjPrefab == null) return false;
+        if (!slots.Exists(s => s.item == itemDef)) return false;
+
+        RemoveItem(itemDef);
+
+        var dir = direction.sqrMagnitude < 0.0001f ? Vector2.right : direction.normalized;
+        var spawnPosition = (Vector2)transform.position + dir * 0.6f;
+        ItemWorldObj.SpawnThrown(spawnPosition, itemDef, 1, itemWorldObjPrefab, dir * power, gravityScale, spin);
+        return true;
     }
 }
